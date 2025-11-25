@@ -15,13 +15,13 @@ begin
     begin
         case sel is
             when "000" => Y <= A; -- ADD
-            when "001" => Y <= B; -- SUB
-            when "010" => Y <= C; -- MUL
-            when "011" => Y <= D; -- AND
-            when "100" => Y <= E; -- OR
-            when "101" => Y <= F; -- XOR
-            when "110" => Y <= G; -- NOT
-            when others => Y <= H; -- ZERO
+            when "001" => Y <= B; -- MULTIPLY
+            when "010" => Y <= C; -- PASS A
+            when "011" => Y <= D; -- PASS B
+            when "100" => Y <= E; -- SUBTRACT
+            when "101" => Y <= (others => '0'); -- UNDEFINED
+            when "110" => Y <= (others => '0'); -- UNDEFINED
+            when others => Y <= (others => '0'); -- UNDEFINED
         end case;
     end process;
 end behavioral;
