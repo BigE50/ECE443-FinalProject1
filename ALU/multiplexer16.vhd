@@ -1,20 +1,27 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity multiplexer_gates is
-  port (
-    A : in  std_logic;
-    B : in  std_logic;
-    S : in  std_logic;
-    Y : out std_logic
-  );
-end entity multiplexer_gates;
+entity multiplexer16 is
+    Port (
+        A, B, C, D, E, F, G, H : in  STD_LOGIC_VECTOR(15 downto 0);
+        sel : in  STD_LOGIC_VECTOR(2 downto 0);
+        Y   : out STD_LOGIC_VECTOR(15 downto 0)
+    );
+end multiplexer16;
 
-architecture structural of multiplexer_gates is
-  signal nS, t1, t2 : std_logic;
+architecture behavioral of multiplexer16 is
 begin
-  nS <= not S;        -- inverter
-  t1 <= A and nS;     -- pass A when S=0
-  t2 <= B and S;      -- pass B when S=1
-  Y  <= t1 or t2;     -- OR results
-end architecture structural;
+    process (A, B, C, D, E, F, G, H, sel)
+    begin
+        case sel is
+            when "000" => Y <= A; -- ADD
+            when "001" => Y <= B; -- SUB
+            when "010" => Y <= C; -- MUL
+            when "011" => Y <= D; -- AND
+            when "100" => Y <= E; -- OR
+            when "101" => Y <= F; -- XOR
+            when "110" => Y <= G; -- NOT
+            when others => Y <= H; -- ZERO
+        end case;
+    end process;
+end behavioral;
